@@ -2,32 +2,24 @@ package org.example.service;
 
 import org.example.model.User;
 import org.example.repository.UserRepository;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserService {
+    @Autowired
+    private UserRepository userRepository;
 
-    private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
+   public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public User addUser(User user) {
-        if (userRepository.findByName(user.getName()).isPresent()) {
-            throw new IllegalArgumentException("Name already exists");
-        }
-
-        try {
-            return userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException("Name already exists");
-        }
+        return userRepository.save(user);
     }
 //    public List<User> getAllUsers(){
 //        return userRepository.getAllUsers();

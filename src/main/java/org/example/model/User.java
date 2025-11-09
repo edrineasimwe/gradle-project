@@ -1,11 +1,18 @@
 package org.example.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "name") // enforce uniqueness at DB level
 })
+
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +24,13 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    // Constructors
-    public User() {}
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    // Getters and Setters
+//    // Constructors
+//    public User() {}
+//    public User(String name, String email) {
+//        this.name = name;
+//        this.email = email;
+//    }
+        //Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
